@@ -1,0 +1,21 @@
+
+body {
+    background: rgb(200,200,200);
+}
+
+h1 {
+    font-size: 60px;
+}
+
+canvas {
+    padding: 0;
+    margin: auto;
+    display: block;
+    width: 500px;
+    height: 500px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
