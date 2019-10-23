@@ -13,21 +13,21 @@ short xBeeRx = 12;
 SoftwareSerial xBeeSerial(xBeeRx, xBeeTx);
 
 // Code setup
-void setup (){
+void setup(){
   
   Serial.begin(9600);
-  xBeeSerial.begin (9600) ;
+  xBeeSerial.begin(9600) ;
   
 }// End void setup ()
 
 // Code loop
-void loop (){
+void loop(){
 
   // If we receive data we print it out.
   if (xBeeSerial.available() > 0){
     receive = xBeeSerial.readStringUntil('\n'); // read in data as a String
     //int receiveInt = receive.toInt(); // convert a String into an integer
-    Serial.println(receive );
+    Serial.println(receive);
   }// End if (xBeeSerial.available() > 0)
   
 }//End void loop ()
