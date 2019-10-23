@@ -23,9 +23,11 @@ void setup() {
   void draw() { 
     if (0 < port.available()) { // If data is available , 
       String valstring = port.readStringUntil('\n'); // read the value as string and store it in valstring
-      val = int(float(valstring)); // convert the string type into int type
-      println(val);
-      
+      if (valstring != null) { // remove the nullpointer exception
+         val = int(float(valstring)); // convert the string type into int type
+         println(val);
+      }
+
       if (db.connect()){
         // insert record into db
         db.query("INSERT INTO sensor_data_test(did, date_, time_, distance, led_state) VALUES (1, CURRENT_DATE(), CURRENT_TIME(), %d, CASE WHEN %d < 20 THEN 1 ELSE 0 END)",val,val);
