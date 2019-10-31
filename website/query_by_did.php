@@ -1,17 +1,24 @@
 
 <?php
+
+$servername ="10.50.202.242"; // the IP address of your server
+$username = "user07" ; // your user name to access the database
+$password = "user07" ; // your password to access the database
+$dbname = "user07" ; // the database which is already created on the server
+
+
+/*  // FOR LOCAL TESTING
 $servername ="localhost"; // the IP address of your server
 $username = "root" ; // your user name to access the database
 $password = "root" ; // your password to access the database
 $dbname = "data_acquisition_db" ; // the database which is already created on the server
 $port = 3307;
+*/
 
 
-$did = $_POST['did'];
-$temperature = $_POST['temperature'];
 $devicetype = $_POST['devicetype'];
 
-$conn = new mysqli( "$servername:$port" , $username , $password , $dbname ) ; // set up connection to the database on the server
+$conn = new mysqli( $servername , $username , $password , $dbname ) ; // set up connection to the database on the server
 if ( $conn->connect_error ) { // print out the error message if connection fails
 	die ( " Connection failed : ".$conn->connect_error ) ;
 }
@@ -29,7 +36,7 @@ $rid = $row["rid"];
 $deviceID = $row["did"]; // $deviceID contains the value in the "did " column
 $date = $row["date_"]; // $date contains the value in the " date " column
 $time = $row["time_"]; // $time contains the value in the " time " column
-$dist = $row["dist_"]; // $temperature contains the value in the " temperature " column
+$dist = $row["distance"]; // $temperature contains the value in the " temperature " column
 $led_state = $row["led_state"]; 
 echo "<tr><td> $rid </td> <td> $deviceID </td ><td>$date </td> <td >$time </td> <td>
 $dist </td><td>

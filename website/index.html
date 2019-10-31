@@ -8,9 +8,21 @@
 </head>
 <body>
 
-    <center><h1>Proximity Visualization</h1></center>
+    <center><h1>Database Query</h1></center>
     <div class="proximity_vis">
     <canvas data-processing-sources="alert_status_vis/alert_status_vis.pde"></canvas>
     </div>
+    <div class = "database_php_queries">
+	<form action ="query_by_did.php" method="post">
+		<fieldset >
+			<legend> Select Device ID : </legend >
+				<input type = "radio" name = "devicetype" value = "1"> 1
+				<input type = "radio" name = "devicetype" value = "2"> 2					
+				<input type ="submit">
+				</fieldset >
+
+			</form >
+	</div>
+	<a href="clear_table.php"> Click here to clear the database</a>
 </body>
 </html>
