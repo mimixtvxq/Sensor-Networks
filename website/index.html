@@ -5,24 +5,105 @@
     <title>LED State Visualization</title>
     <link rel="stylesheet" href="style.css">
     <script src="processing.min.js"></script>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
-    <center><h1>Database Query</h1></center>
-    <div class="proximity_vis">
-    <canvas data-processing-sources="alert_status_vis/alert_status_vis.pde"></canvas>
-    </div>
-    <div class = "database_php_queries">
-	<form action ="query_by_did.php" method="post">
-		<fieldset >
-			<legend> Select Device ID : </legend >
-				<input type = "radio" name = "devicetype" value = "1"> 1
-				<input type = "radio" name = "devicetype" value = "2"> 2					
-				<input type ="submit">
-				</fieldset >
+    <center><h1>Proximity Sensor Data</h1></center>
+    <!--<div class="proximity_vis">
+	<canvas data-processing-sources="alert_status_vis/alert_status_vis.pde"></canvas>
+    </div>-->
 
-			</form >
+	<!-- Vis -->
+	<center><h2>Current Status</h2></center>
+	<div class="vis" style="width:500px;height:auto;margin: 0 auto;">
+		<canvas id="alert_status_vis"  width="500" height="500" style="display:inline-block">Your browser does not support the HTML5 canvas tag.</canvas>
 	</div>
-	<a href="clear_table.php"> Click here to clear the database</a>
+
+	<script>
+		var c = document.getElementById("alert_status_vis");
+		var ctx = c.getContext("2d");
+		ctx.fillStyle = "rgb(0,0,0)";
+		ctx.fillRect(0,0,50,500);
+		ctx.fillStyle = "rgb(139,69,19)";
+		ctx.fillRect(50,150,20,200);
+		ctx.beginPath();
+		ctx.lineWidth = "2";
+		ctx.strokeStyle = "rgb(0,0,0)";
+		ctx.moveTo(400, 500);
+		ctx.lineTo(400, 0);
+		ctx.stroke();
+		ctx.beginPath();
+		ctx.arc(400,250,30,0,2*Math.PI);
+		ctx.fillStyle = "rgb(250,250,250)";
+		ctx.fill();
+		ctx.stroke();
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			setInterval(function StateIntrvl() {
+				$.ajax({
+					url:'query_most_recent.php',
+					dataType: "json",
+					contentType: "application/json; charset=utf-8",
+					success: function(response){
+						//var jsonData = JSON.parse(response);
+
+						var c = document.getElementById("alert_status_vis");
+						var ctxt = c.getContext("2d");
+
+						if (response[0] == "1") {
+							ctxt.arc(400, 250, 30, 0, 2 * Math.PI);
+							ctxt.fillStyle = "rgb(250,0,0)";
+							ctxt.fill();
+							ctxt.stroke();
+						}
+						else
+						{
+							ctxt.arc(400, 250, 30, 0, 2 * Math.PI);
+							ctxt.fillStyle = "rgb(250,250,250)";
+							ctxt.fill();
+							ctxt.stroke();
+						}
+						ctx.fillStyle = "rgb(200,200,200)";
+						ctx.fillRect(230,200,100,100);
+						ctxt.font = "30px Arial";
+						ctxt.fillStyle = "rgb(0,0,0)";
+						ctxt.fillText(response[1],250,258);
+						console.log(response);
+						console.log("success");
+					}
+				})
+				console.log("interval completed")
+			},1000);
+		})
+	</script>
+	<br><br>
+	<!-- Query -->
+    <div class = "database_php_queries">
+		<form action ="query_by_did.php" method="post">
+			<fieldset>
+				<legend> Query Sensor Data : </legend> <br>
+				Select Device ID:
+				<input type = "radio" name = "devicetype" value = "1"> 1
+				<input type = "radio" name = "devicetype" value = "2"> 2 <br><br>
+				Select Starting Date*: <br>
+				Day <input type = "text" name = "day"> <br>
+				Month <input type = "text" name = "month"> <br>
+				Year <input type = "text" name = "year"> <br><br>
+				Select Starting Time: <br>
+				Hour <input type = "text" name = "hour"> <br>
+				Minute <input type = "text" name = "minute"> <br>
+				Second <input type = "text" name = "second"> <br><br>
+				Select Maximum Number of Records:<br>
+				<input type = "text" name = "limit">
+				<br><br>
+				<center><input type ="submit"></center> <br>
+				*Please provide values for all 3 fields to ensure a reasonable query <br>
+				For example, providing only 10 as month will return records starting at 00.10.0000.
+			</fieldset>
+		</form>
+	</div> <br> <br>
+	<center><a href="clear_table.php"> Click here to clear the database</a></center>
 </body>
 </html>
