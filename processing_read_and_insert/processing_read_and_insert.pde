@@ -30,7 +30,7 @@ void setup() {
 
       if (db.connect()){
         // insert record into db
-        db.query("INSERT INTO sensor_data_test(did, date_, time_, distance, led_state) VALUES (1, CURRENT_DATE(), CURRENT_TIME(), %d, CASE WHEN %d < 20 THEN 1 ELSE 0 END)",val,val);
+        db.query("INSERT INTO sensor_data_test(did, date_, time_, distance, led_state) VALUES (1, CURRENT_DATE(), CURRENT_TIME(), %d, CASE WHEN %d > 0 THEN 1 ELSE 0 END)",val,val);
       }
     }   
   }
