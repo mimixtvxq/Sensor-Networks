@@ -8,7 +8,7 @@ int val; // Data received from the serial port
 
 void setup() { 
   size(200, 200); // Open the port that the board is connected to and use the same speed (9600 bps) 
-  port = new Serial(this , "COM5", 9600); // The port name may be different on your computer from "COM3", // you can use println(Serial.list()); to check the port name 
+  port = new Serial(this , "COM21", 9600); // The port name may be different on your computer from "COM3", // you can use println(Serial.list()); to check the port name 
   
   frameRate(1);
   
