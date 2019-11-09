@@ -7,7 +7,11 @@ h1 {
     font-size: 60px;
 }
 
-canvas {
+h2 {
+    font-size: 40px;
+}
+
+/*canvas {
     padding: 0;
     margin: auto;
     display: block;
@@ -18,4 +22,24 @@ canvas {
     bottom: 0;
     left: 0;
     right: 0;
+}*/
+
+.vis {
+    width:500px;
+    height:auto;
+    /*display: inline-block;*/
+    margin: 0 auto;
+}
+
+canvas #alert_status_vis {
+    display: inline-block;
+}
+
+.database_php_queries {
+    width: 600px;
+    margin: 0 auto;
+}
+
+input[type=text] {
+    width: 40px;
 }

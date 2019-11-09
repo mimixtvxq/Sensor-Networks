@@ -9,25 +9,41 @@ String receive;
 short xBeeTx = 11;
 short xBeeRx = 12;
 
+// LED output, this is to know that the data is being received by the xBee receiver.
+const int LED = 8;
+
 // We define the xBeeSerial object
 SoftwareSerial xBeeSerial(xBeeRx, xBeeTx);
 
 // Code setup
-void setup(){
-  
+void setup (){
+
+  // We setup the serial port transmission for both Serial and xBee Serial
   Serial.begin(9600);
   xBeeSerial.begin(9600) ;
+
+  // We setup the LED output
+  pinMode(LED, OUTPUT);
   
 }// End void setup ()
 
 // Code loop
-void loop(){
-
-  // If we receive data we print it out.
+void loop (){
+  // If we receive data we print it out and also turn on a Green LED.
   if (xBeeSerial.available() > 0){
+
+    // Turn on the LED, meaning that the data is being received.
+    digitalWrite(LED , HIGH);
     receive = xBeeSerial.readStringUntil('\n'); // read in data as a String
-    //int receiveInt = receive.toInt(); // convert a String into an integer
+    // We print this data in the serial monitor
     Serial.println(receive);
+    
   }// End if (xBeeSerial.available() > 0)
+  else {
+    
+    // The light remains off, no data is sent
+    digitalWrite(LED , LOW);
+    
+  }// End else
   
 }//End void loop ()
